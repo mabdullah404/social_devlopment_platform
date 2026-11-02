@@ -31,14 +31,14 @@ const BannerSection = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-indigo-950/5 via-base-100 to-base-100 py-16 md:py-24 border-b border-base-300 dark:border-slate-800">
+    <section className="relative overflow-hidden bg-gradient-to-b from-indigo-950/5 via-base-100 to-base-100 py-12 md:py-24 border-b border-base-300 dark:border-slate-800 w-full max-w-full">
       
       {/* ব্যাকগ্রাউন্ড অরা গ্লো (ইন্ডিগো এবং অ্যাম্বার) */}
-      <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 left-1/4 w-72 sm:w-[500px] h-72 sm:h-[500px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center w-full">
           
           {/* বাম কলাম: টেক্সট এবং কুইক সার্চ */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
@@ -102,18 +102,18 @@ const BannerSection = () => {
             </div>
 
             {/* লাইভ কাউন্টার স্ট্যাটস */}
-            <div className="pt-6 border-t border-base-300 dark:border-slate-800 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-left">
-              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-xl sm:text-2xl md:text-3xl font-black text-indigo-600 dark:text-indigo-400">14k+</p>
-                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Lives Touched</p>
+            <div className="pt-6 border-t border-base-300 dark:border-slate-800 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-left w-full">
+              <div className="p-2 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800 min-w-0">
+                <p className="text-lg sm:text-2xl md:text-3xl font-black text-indigo-600 dark:text-indigo-400">14k+</p>
+                <p className="text-[9px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-tight truncate">Lives Touched</p>
               </div>
-              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-xl sm:text-2xl md:text-3xl font-black text-rose-500">92+</p>
-                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Active Drives</p>
+              <div className="p-2 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800 min-w-0">
+                <p className="text-lg sm:text-2xl md:text-3xl font-black text-rose-500">92+</p>
+                <p className="text-[9px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-tight truncate">Active Drives</p>
               </div>
-              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-xl sm:text-2xl md:text-3xl font-black text-amber-500">4.2k+</p>
-                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Volunteers</p>
+              <div className="p-2 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800 min-w-0">
+                <p className="text-lg sm:text-2xl md:text-3xl font-black text-amber-500">4.2k+</p>
+                <p className="text-[9px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-tight truncate">Volunteers</p>
               </div>
             </div>
 
@@ -165,8 +165,8 @@ const BannerSection = () => {
               </div>
 
               {/* নিচের প্রোগ্রেস ও পার্টিসিপেশন কার্ড */}
-              <div className="p-6 space-y-4">
-                <div className="flex items-center justify-between text-xs font-bold">
+              <div className="p-4 sm:p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between text-xs font-bold gap-2">
                   <span className="text-base-content/70 flex items-center gap-1.5">
                     <Users className="w-4 h-4 text-indigo-600" />
                     <span>Volunteer Enrollment</span>
@@ -178,7 +178,7 @@ const BannerSection = () => {
                   <div className="h-full bg-gradient-to-r from-indigo-600 to-rose-500 rounded-full" style={{ width: "84%" }} />
                 </div>
 
-                <div className="flex items-center justify-between pt-1">
+                <div className="flex flex-wrap items-center justify-between pt-1 gap-2">
                   <div className="flex -space-x-2">
                     {["T", "A", "R", "S"].map((initial, i) => (
                       <div

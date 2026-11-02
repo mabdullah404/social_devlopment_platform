@@ -8,7 +8,7 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 // হোম পেজ - ৫টি সেকশনের সমন্বয়ে গঠিত (PDF রিকোয়ারমেন্ট অনুযায়ী)
 export default function HomePage() {
   return (
-    <div className="w-full space-y-0">
+    <div className="w-full max-w-full overflow-x-hidden space-y-0">
       {/* ১. ব্যানার সেকশন */}
       <BannerSection />
 

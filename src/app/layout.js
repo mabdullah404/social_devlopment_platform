@@ -21,14 +21,20 @@ export const metadata = {
     "A high-impact community-driven event management network where citizens unite to create, join, and track impactful social service events in their local neighborhoods.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden max-w-full`}
     >
-      <body className="min-h-full flex flex-col bg-base-100 text-base-content selection:bg-emerald-500 selection:text-white transition-colors duration-200">
+      <body className="min-h-full flex flex-col bg-base-100 text-base-content selection:bg-emerald-500 selection:text-white transition-colors duration-200 overflow-x-hidden max-w-full w-full">
         <ThemeProvider>
           {/* গ্লোবাল নোটিফিকেশন টোস্টার */}
           <Toaster
@@ -52,7 +58,7 @@ export default function RootLayout({ children }) {
           <Navbar />
 
           {/* মূল কন্টেন্ট সেকশন */}
-          <main className="flex-1 w-full">{children}</main>
+          <main className="flex-1 w-full max-w-full overflow-x-hidden">{children}</main>
 
           {/* ফুটার */}
           <Footer />

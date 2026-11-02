@@ -122,8 +122,14 @@
     @apply border-border outline-ring/50;
   }
   html, body {
-    overflow-x: hidden;
-    max-width: 100vw;
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    position: relative;
+    box-sizing: border-box;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
   body {
     @apply bg-background text-foreground min-h-screen;

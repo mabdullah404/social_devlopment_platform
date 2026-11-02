@@ -42,8 +42,8 @@ const Navbar = () => {
   const isActive = (path) => pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-base-300 dark:border-slate-800 bg-base-100/95 backdrop-blur-md transition-colors">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full max-w-full border-b border-base-300 dark:border-slate-800 bg-base-100/95 backdrop-blur-md transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between h-20">
           
           {/* ১. ইউনিক লোগো ও ব্র্যান্ড নেম (CivicPulse) */}
