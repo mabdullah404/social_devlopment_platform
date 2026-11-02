@@ -6,9 +6,10 @@
 
 ## 🌐 Live Deployment & Project Links
 
-- **Live Site URL:** [https://civicpulse-platform.vercel.app](https://civicpulse-platform.vercel.app)
-- **Client GitHub Repository:** [https://github.com/your-username/social_devlopment_platform](https://github.com/your-username/social_devlopment_platform)
-- **Server GitHub Repository:** [https://github.com/your-username/server_social_development](https://github.com/your-username/server_social_development)
+- **Live Site URL:** [https://social-development-platform.vercel.app](https://social-development-platform.vercel.app)
+- **Live Server API URL:** [https://social-development-server-sigma.vercel.app](https://social-development-server-sigma.vercel.app)
+- **Client GitHub Repository:** [https://github.com/mabdullah404/social_devlopment_platform](https://github.com/mabdullah404/social_devlopment_platform)
+- **Server GitHub Repository:** [https://github.com/mabdullah404/server_social_development](https://github.com/mabdullah404/server_social_development)
 
 ---
 
