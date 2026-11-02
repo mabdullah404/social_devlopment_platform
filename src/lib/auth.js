@@ -33,9 +33,20 @@ if (process.env.NODE_ENV === "development") {
 
 const db = client.db("socialDevelopmentDB");
 
+const rawBaseURL =
+  process.env.BETTER_AUTH_URL ||
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+const resolvedBaseURL = rawBaseURL ? rawBaseURL.replace(/\/$/, "") : "http://localhost:3000";
+
 // BetterAuth কনফিগারেশন (ইমেইল/পাসওয়ার্ড এবং গুগল লগইন)
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  baseURL: resolvedBaseURL,
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://social-development-platform.vercel.app",
+    "https://*.vercel.app",
+    resolvedBaseURL,
+  ],
   secret:
     process.env.BETTER_AUTH_SECRET || "default-dev-secret-key-for-social-app",
 
