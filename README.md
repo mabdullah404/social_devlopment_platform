@@ -140,10 +140,17 @@ The server will run on [http://localhost:5000](http://localhost:5000).
 
 ---
 
+## 👨‍💻 Developer & Portfolio
+
+- **Lead Developer:** MD Abdullah Al Mamun
+- **GitHub Profile:** [https://github.com/mabdullah404](https://github.com/mabdullah404)
+- **Live Portfolio:** [https://personal-portfolio-omega-seven-70.vercel.app](https://personal-portfolio-omega-seven-70.vercel.app)
+
+---
+
 ## 📝 GitHub Commits & Submission Compliance
 
-- **Client Commits:** 25+ meaningful and structured commits following standard Conventional Commits.
+- **Client Commits:** 27+ meaningful and structured commits following standard Conventional Commits.
 - **Server Commits:** 8+ commits documenting backend route implementations and database operations.
 - **Assignment ID:** B14-A8_Cat-Hermione ("Social Development Events Platform")
 - **License:** MIT License
-,lm 
