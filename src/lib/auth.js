@@ -12,7 +12,7 @@ try {
 
 const dbUrl =
   process.env.BETTER_AUTH_DB_URL ||
-  "mongodb://SocialDevelopment:nlIYFRism5X8RPDE@ac-3ww2xt0-shard-00-00.wr4odv4.mongodb.net:27017,ac-3ww2xt0-shard-00-01.wr4odv4.mongodb.net:27017,ac-3ww2xt0-shard-00-02.wr4odv4.mongodb.net:27017/better-auth-db?ssl=true&replicaSet=atlas-11txxf-shard-0&authSource=admin";
+  "mongodb://SocialDevelopment:nlIYFRism5X8RPDE@ac-3ww2xt0-shard-00-00.wr4odv4.mongodb.net:27017,ac-3ww2xt0-shard-00-01.wr4odv4.mongodb.net:27017,ac-3ww2xt0-shard-00-02.wr4odv4.mongodb.net:27017/socialDevelopmentDB?ssl=true&replicaSet=atlas-11txxf-shard-0&authSource=admin";
 
 // MongoDB ক্লায়েন্ট সিঙ্গেলটন প্যাটার্ন (Next.js হট রিলোডে একাধিক কানেকশন এড়াতে)
 let client;
@@ -31,7 +31,7 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-const db = client.db("better-auth-db");
+const db = client.db("socialDevelopmentDB");
 
 // BetterAuth কনফিগারেশন (ইমেইল/পাসওয়ার্ড এবং গুগল লগইন)
 export const auth = betterAuth({
