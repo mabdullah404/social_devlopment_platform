@@ -254,3 +254,4 @@ const UpdateEventModal = ({ isOpen, onClose, event, onUpdateSuccess }) => {
 };
 
 export default UpdateEventModal;
+

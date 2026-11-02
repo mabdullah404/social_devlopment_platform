@@ -187,3 +187,4 @@ const UpcomingEventsPage = () => {
 };
 
 export default UpcomingEventsPage;
+

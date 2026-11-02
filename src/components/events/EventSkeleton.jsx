@@ -34,3 +34,4 @@ const EventSkeleton = () => {
 };
 
 export default EventSkeleton;
+

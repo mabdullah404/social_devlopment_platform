@@ -396,3 +396,4 @@ const EventDetailsPage = ({ params }) => {
 };
 
 export default EventDetailsPage;
+

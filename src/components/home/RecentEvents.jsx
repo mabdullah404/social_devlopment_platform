@@ -129,3 +129,4 @@ const RecentEvents = () => {
 };
 
 export default RecentEvents;
+

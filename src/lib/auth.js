@@ -1,22 +1,22 @@
 import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import dns from "node:dns";
 
-// DNS সার্ভার সেট করা যাতে MongoDB SRV কানেকশন নির্বিঘ্নে কাজ করে
-dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
-
-const client = new MongoClient(process.env.BETTER_AUTH_DB_URL || "");
-const db = client.db("better-auth-db");
+const dbUrl = process.env.BETTER_AUTH_DB_URL || "mongodb://localhost:27017/better-auth-db";
+const client = new MongoClient(dbUrl);
+const db = client.db();
 
 // BetterAuth কনফিগারেশন
 export const auth = betterAuth({
-  // ইমেইল এবং পাসওয়ার্ড ভিত্তিক লগইন সক্ষম করা
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  secret: process.env.BETTER_AUTH_SECRET || "default-dev-secret-key-for-social-app",
+
+  // ইমেইল এবং পাসওয়ার্ড ভিত্তিক লগইন
   emailAndPassword: {
     enabled: true,
   },
 
-  // গুগল এবং গিটহাব সোশ্যাল প্রোভাইডার
+  // সোশ্যাল প্রোভাইডার
   socialProviders: {
     google: {
       clientId: process.env.BETTER_AUTH_GOOGLE_CLIENT_ID || "",

@@ -202,3 +202,4 @@ const JoinedEventsPage = () => {
 };
 
 export default JoinedEventsPage;
+

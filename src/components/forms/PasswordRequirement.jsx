@@ -18,6 +18,7 @@ const PasswordRequirement = ({ password = "" }) => {
       <p className="font-semibold text-base-content/70 mb-1">
         Password Requirements:
       </p>
+      
       {rules.map((rule, idx) => (
         <div
           key={idx}
@@ -42,3 +43,4 @@ const PasswordRequirement = ({ password = "" }) => {
 };
 
 export default PasswordRequirement;
+
