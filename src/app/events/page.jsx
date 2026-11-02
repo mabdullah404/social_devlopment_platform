@@ -97,11 +97,12 @@ const UpcomingEventsPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* টপ এমারজেন্সি লাইভ টিকার (ইউনিক ফিচার) */}
-        <div className="mb-8 p-3 rounded-2xl bg-gradient-to-r from-rose-500/10 via-amber-500/10 to-indigo-500/10 border border-rose-500/20 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs font-extrabold text-rose-600 dark:text-rose-400 truncate">
-            <Flame className="w-4 h-4 shrink-0 animate-bounce" />
+        {/* টপ নোটিশ বার */}
+        <div className="mb-8 p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs font-bold text-rose-700 dark:text-rose-400 truncate">
+            <Flame className="w-4 h-4 shrink-0 text-rose-600" />
             <span className="uppercase tracking-wider">Active Relief Need:</span>
-            <span className="text-base-content/80 font-medium truncate">
+            <span className="text-slate-700 dark:text-slate-300 font-medium truncate">
               Winter clothes & blanket collection underway in Mirpur 10 & Mohammadpur.
             </span>
           </div>
@@ -114,27 +115,27 @@ const UpcomingEventsPage = () => {
         </div>
 
         {/* হেডার ব্যানার */}
-        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-12 mb-10 border border-base-300 dark:border-slate-800 bg-gradient-to-br from-indigo-950/10 via-base-100 to-rose-500/5 shadow-sm">
+        <div className="relative rounded-3xl overflow-hidden p-8 sm:p-12 mb-10 border border-slate-200 dark:border-slate-800 bg-base-200/40 dark:bg-slate-900/40 shadow-sm">
           <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-3 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Verified Humanitarian Roster</span>
+                <span>Community Initiatives & Volunteering</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-base-content tracking-tight">
-                Grassroots Action Roster
+                Upcoming Events
               </h1>
               <p className="text-sm sm:text-base text-base-content/70 leading-relaxed">
-                Direct community drives organized by conscious citizens. Connect with volunteers, reserve your slot, and make an immediate impact.
+                Explore and join social development events organized by volunteers in your community. Connect with organizers and make an immediate impact.
               </p>
             </div>
 
             <Link
               href="/create-event"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-indigo-600/25 active:scale-95 transition-all shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-indigo-600/25 active:scale-95 transition-all shrink-0"
             >
               <PlusCircle className="w-4 h-4" />
-              <span>Initiate a Campaign</span>
+              <span>Create Event</span>
             </Link>
           </div>
         </div>

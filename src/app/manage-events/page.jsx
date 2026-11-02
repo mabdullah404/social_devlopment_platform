@@ -109,13 +109,13 @@ const ManageEventsPage = () => {
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 mb-2">
                 <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                <span>Campaign Console</span>
+                <span>Organizer Dashboard</span>
               </div>
               <h1 className="text-3xl font-extrabold text-base-content tracking-tight">
-                Manage My Initiatives
+                Manage My Events
               </h1>
               <p className="text-sm text-base-content/70 mt-1">
-                View, update, or remove community campaigns initiated under your profile.
+                View, update, or remove events hosted by you.
               </p>
             </div>
 
@@ -124,7 +124,7 @@ const ManageEventsPage = () => {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-indigo-600/20 active:scale-95 transition-all shrink-0"
             >
               <PlusCircle className="w-4 h-4" />
-              <span>Launch New Drive</span>
+              <span>Create Event</span>
             </Link>
           </div>
 

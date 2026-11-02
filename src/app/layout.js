@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
-  variable: "--font-font-sans",
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 

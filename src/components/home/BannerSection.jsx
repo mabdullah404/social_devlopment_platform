@@ -52,7 +52,7 @@ const BannerSection = () => {
             {/* প্রধান শিরোনাম */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-base-content tracking-tight leading-[1.12]">
               Empower Citizens. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-600 to-rose-500">
+              <span className="text-indigo-600 dark:text-indigo-400">
                 Transform Neighborhoods.
               </span>
             </h1>
@@ -166,16 +166,16 @@ const BannerSection = () => {
 
               {/* নিচের প্রোগ্রেস ও পার্টিসিপেশন কার্ড */}
               <div className="p-4 sm:p-6 space-y-4">
-                <div className="flex flex-wrap items-center justify-between text-xs font-bold gap-2">
-                  <span className="text-base-content/70 flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-indigo-600" />
+                <div className="flex flex-wrap items-center justify-between text-xs font-semibold gap-2">
+                  <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
+                    <Users className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                     <span>Volunteer Enrollment</span>
                   </span>
-                  <span className="text-indigo-600 font-black">42 / 50 Joined (84%)</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-bold">42 of 50 Joined</span>
                 </div>
 
-                <div className="w-full h-2 rounded-full bg-base-200 dark:bg-slate-800 overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-indigo-600 to-rose-500 rounded-full" style={{ width: "84%" }} />
+                <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div className="h-full bg-indigo-600 dark:bg-indigo-500 rounded-full transition-all duration-500" style={{ width: "84%" }} />
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between pt-1 gap-2">

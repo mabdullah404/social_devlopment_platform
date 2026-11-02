@@ -127,14 +127,18 @@
     width: 100% !important;
     position: relative;
     box-sizing: border-box;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   }
   *, *::before, *::after {
     box-sizing: border-box;
   }
   body {
-    @apply bg-background text-foreground min-h-screen;
+    @apply bg-background text-foreground min-h-screen font-sans;
   }
   html {
     @apply font-sans scroll-smooth;
+  }
+  h1, h2, h3, h4, h5, h6, button, input, select, textarea, p, span, a {
+    font-family: inherit;
   }
 }

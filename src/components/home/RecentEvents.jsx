@@ -41,21 +41,21 @@ const RecentEvents = () => {
           <div className="space-y-3 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300">
               <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Immediate Grassroots Action</span>
+              <span>Upcoming Initiatives</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-base-content tracking-tight">
-              Featured Community Drives
+              Upcoming Events
             </h2>
             <p className="text-sm sm:text-base text-base-content/70 leading-relaxed">
-              Explore the 6 most urgent upcoming social development drives scheduled across neighborhood hubs.
+              Join hands with fellow volunteers. Explore upcoming social development drives and community initiatives.
             </p>
           </div>
 
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-base-200 hover:bg-indigo-600 hover:text-white text-xs font-extrabold uppercase tracking-wider transition-all shadow-sm shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-base-200 hover:bg-indigo-600 hover:text-white text-xs font-bold uppercase tracking-wider transition-all shadow-sm shrink-0"
           >
-            <span>Explore All Drives</span>
+            <span>Explore All Events</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

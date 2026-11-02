@@ -25,12 +25,12 @@ const EventFilter = ({
   eventsCount = 0,
 }) => {
   const causes = [
-    { label: "All Initiatives", value: "All", icon: Layers, count: "All" },
-    { label: "Winter & Relief Aid", value: "Donation", icon: Heart, count: "Priority" },
-    { label: "Civic Sanitation", value: "Cleanup", icon: Sparkles, count: "Active" },
-    { label: "Urban Afforestation", value: "Plantation", icon: Trees, count: "Weekly" },
-    { label: "Medical & Health", value: "Healthcare", icon: Stethoscope, count: "Camps" },
-    { label: "Youth Workshop", value: "Education", icon: GraduationCap, count: "Skills" },
+    { label: "All Events", value: "All", icon: Layers },
+    { label: "Donation & Relief", value: "Donation", icon: Heart },
+    { label: "Cleanup Drive", value: "Cleanup", icon: Sparkles },
+    { label: "Plantation", value: "Plantation", icon: Trees },
+    { label: "Healthcare", value: "Healthcare", icon: Stethoscope },
+    { label: "Education", value: "Education", icon: GraduationCap },
   ];
 
   const locations = [
@@ -72,15 +72,6 @@ const EventFilter = ({
               </div>
               <span className="text-xs font-bold leading-tight line-clamp-1">
                 {cause.label}
-              </span>
-              <span
-                className={`text-[10px] font-semibold mt-1 px-2 py-0.5 rounded-full ${
-                  isSelected
-                    ? "bg-white/20 text-white"
-                    : "bg-base-200 dark:bg-slate-800 text-base-content/60"
-                }`}
-              >
-                {cause.count}
               </span>
             </button>
           );
