@@ -1,64 +1,71 @@
 import React from "react";
 import Link from "next/link";
-import DateBadge from "@/components/events/DateBadge";
 import { 
   MapPin, 
   ArrowUpRight, 
   Users, 
+  Clock, 
   Heart, 
   Sparkles, 
   Trees, 
   Stethoscope, 
   GraduationCap, 
-  ShieldAlert 
+  Flame, 
+  ShieldCheck 
 } from "lucide-react";
 
-// আধুনিক ও ইউনিক ডিজাইন সমৃদ্ধ ইভেন্ট কার্ড (ThemeForest স্টাইল)
+// আন্তর্জাতিক ও সম্পূর্ণ ইউনিক টিকিট-স্টাব স্টাইল ইভেন্ট কার্ড (ThemeForest / Eventbrite স্ট্যান্ডার্ড)
 const EventCard = ({ event }) => {
-  // ক্যাটাগরি আইকন ও কালার স্কিম
+  // ক্যাটাগরি তথ্য ও কালার স্কিম (রয়েল ইন্ডিগো এবং সানসেট কোরাল থিম)
   const getCategoryMeta = (type) => {
     switch (type?.toLowerCase()) {
       case "donation":
         return {
           icon: Heart,
-          text: "Donation Drive",
-          chip: "bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800",
-          bar: "bg-rose-500",
+          label: "Winter & Relief Aid",
+          badgeColor: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20",
+          progressColor: "bg-gradient-to-r from-rose-500 to-amber-500",
+          urgency: "High Priority",
         };
       case "cleanup":
         return {
           icon: Sparkles,
-          text: "Cleanliness Campaign",
-          chip: "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/60 dark:text-blue-300 dark:border-blue-800",
-          bar: "bg-blue-500",
+          label: "Civic Sanitation",
+          badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+          progressColor: "bg-gradient-to-r from-blue-500 to-cyan-500",
+          urgency: "Eco Action",
         };
       case "plantation":
         return {
           icon: Trees,
-          text: "Urban Afforestation",
-          chip: "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800",
-          bar: "bg-emerald-500",
+          label: "Urban Afforestation",
+          badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
+          progressColor: "bg-gradient-to-r from-emerald-500 to-teal-500",
+          urgency: "Green Drive",
         };
       case "healthcare":
         return {
           icon: Stethoscope,
-          text: "Free Medical Care",
-          chip: "bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/60 dark:text-teal-300 dark:border-teal-800",
-          bar: "bg-teal-500",
+          label: "Medical & Health",
+          badgeColor: "bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20",
+          progressColor: "bg-gradient-to-r from-teal-500 to-indigo-500",
+          urgency: "Health Camp",
         };
       case "education":
         return {
           icon: GraduationCap,
-          text: "Youth Workshop",
-          chip: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800",
-          bar: "bg-amber-500",
+          label: "Youth Empowerment",
+          badgeColor: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20",
+          progressColor: "bg-gradient-to-r from-amber-500 to-orange-500",
+          urgency: "Skills Drive",
         };
       default:
         return {
-          icon: ShieldAlert,
-          text: type || "Social Service",
-          chip: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/60 dark:text-indigo-300 dark:border-indigo-800",
-          bar: "bg-indigo-500",
+          icon: Heart,
+          label: type || "Community Drive",
+          badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
+          progressColor: "bg-gradient-to-r from-indigo-500 to-violet-500",
+          urgency: "Community First",
         };
     }
   };
@@ -66,126 +73,147 @@ const EventCard = ({ event }) => {
   const meta = getCategoryMeta(event.eventType);
   const CategoryIcon = meta.icon;
 
-  // তারিখ ফরম্যাটিং
-  const formatFullDate = (dateStr) => {
-    try {
-      return new Date(dateStr).toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-    } catch {
-      return dateStr;
-    }
+  // তারিখ এবং দিন গণনা (Countdown)
+  const eventDateObj = new Date(event.eventDate);
+  const isValidDate = !isNaN(eventDateObj.getTime());
+  
+  const monthName = isValidDate
+    ? eventDateObj.toLocaleDateString("en-US", { month: "short" }).toUpperCase()
+    : "DATE";
+  const dayNumber = isValidDate ? eventDateObj.getDate() : "--";
+  const weekday = isValidDate
+    ? eventDateObj.toLocaleDateString("en-US", { weekday: "short" })
+    : "";
+
+  const calculateDaysRemaining = () => {
+    if (!isValidDate) return "Upcoming";
+    const diffTime = eventDateObj.getTime() - new Date().getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (diffDays <= 0) return "Happening Today";
+    if (diffDays === 1) return "Starts Tomorrow";
+    return `In ${diffDays} days`;
   };
 
-  // ডেমো ভলান্টিয়ার প্রোগ্রেস (ইউনিক ও প্রফেশনাল লুকের জন্য)
-  const registeredCount = event.volunteerCount || 18;
-  const targetCount = event.targetVolunteers || 30;
-  const progressPercent = Math.min(Math.round((registeredCount / targetCount) * 100), 100);
+  // ভলান্টিয়ার এনরোলমেন্ট প্রোগ্রেস
+  const enrolled = event.volunteerCount || 24;
+  const target = event.targetVolunteers || 40;
+  const percent = Math.min(Math.round((enrolled / target) * 100), 100);
 
   return (
-    <div className="group relative flex flex-col h-full rounded-3xl border border-base-300 bg-base-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-emerald-500/40 transition-all duration-300">
+    <div className="group relative flex flex-col h-full rounded-3xl bg-base-100 border border-base-300 dark:border-slate-800 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
       
-      {/* ১. থাম্বনেইল ছবি ও টিকিট ব্যাজ */}
-      <div className="relative w-full aspect-[16/10] overflow-hidden bg-base-200">
+      {/* ১. টপ ভিজুয়াল টিকিট হেডার */}
+      <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-900">
         <img
           src={
             event.thumbnail ||
             "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80"
           }
           alt={event.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
           loading="lazy"
         />
 
-        {/* গ্রেডিয়েন্ট ফিল্টার */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 opacity-70 group-hover:opacity-60 transition-opacity" />
+        {/* ডার্ক গ্রেডিয়েন্ট মাস্ক */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-black/40" />
 
-        {/* ইউনিক ক্যালেন্ডার ডেট ব্যাজ (টপ-লেফট) */}
-        <div className="absolute top-3.5 left-3.5 z-10">
-          <DateBadge dateString={event.eventDate} />
-        </div>
-
-        {/* ক্যাটাগরি চিপ (টপ-রাইট) */}
-        <div className="absolute top-3.5 right-3.5 z-10">
-          <span
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border backdrop-blur-md shadow-md ${meta.chip}`}
-          >
-            <CategoryIcon className="w-3.5 h-3.5" />
-            <span>{meta.text}</span>
+        {/* টপ-লেফট: ক্যালেন্ডার টিকিট স্টাব (Eventbrite স্টাইল) */}
+        <div className="absolute top-3.5 left-3.5 z-10 flex flex-col items-center justify-center w-12 h-14 rounded-2xl bg-base-100/95 dark:bg-slate-900/95 backdrop-blur-md border border-white/20 shadow-xl text-center">
+          <span className="text-[10px] font-black tracking-widest text-indigo-600 dark:text-indigo-400 uppercase leading-none pt-1">
+            {monthName}
+          </span>
+          <span className="text-lg font-black text-base-content leading-tight mt-0.5">
+            {dayNumber}
           </span>
         </div>
 
-        {/* ছবির নিচের বার: ফুল ডেট */}
-        <div className="absolute bottom-3 left-3.5 right-3.5 text-white/90 text-xs font-medium drop-shadow-md">
-          <span>{formatFullDate(event.eventDate)}</span>
+        {/* টপ-রাইট: কাউন্টডাউন ও প্রায়োরিটি পিল */}
+        <div className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold bg-slate-900/80 backdrop-blur-md text-amber-300 border border-amber-400/30 shadow-lg">
+            <Clock className="w-3 h-3 text-amber-400" />
+            <span>{calculateDaysRemaining()}</span>
+          </span>
+        </div>
+
+        {/* ছবির বটম ওভারলে: ক্যাটাগরি ও সপ্তাহের দিন */}
+        <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white text-xs z-10">
+          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold border backdrop-blur-md bg-white/10 ${meta.badgeColor}`}>
+            <CategoryIcon className="w-3.5 h-3.5" />
+            <span>{meta.label}</span>
+          </span>
+          <span className="text-slate-300 font-semibold text-[11px]">
+            {weekday}, {eventDateObj.getFullYear() || 2026}
+          </span>
         </div>
       </div>
 
       {/* ২. কার্ডের বডি */}
-      <div className="p-6 flex flex-col flex-1 justify-between gap-5">
+      <div className="p-6 flex flex-col flex-1 justify-between gap-5 bg-base-100">
         
         <div className="space-y-3">
-          {/* লোকেশন পিন */}
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-            <MapPin className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
+          
+          {/* লোকেশন ব্যাজ */}
+          <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400">
+            <MapPin className="w-3.5 h-3.5 shrink-0" />
             <span className="truncate">{event.location}</span>
           </div>
 
           {/* টাইটেল */}
-          <h3 className="font-bold text-lg text-base-content group-hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
+          <h3 className="font-extrabold text-lg text-base-content group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug tracking-tight">
             {event.title}
           </h3>
 
-          {/* সংক্ষিপ্ত বর্ণনা */}
+          {/* ডেসক্রিপশন */}
           {event.description && (
             <p className="text-xs text-base-content/70 line-clamp-2 leading-relaxed">
               {event.description}
             </p>
           )}
 
-          {/* ইউনিক প্রোগ্রেস বার (ভলান্টিয়ার ক্যাপাসিটি নির্দেশক) */}
+          {/* ভলান্টিয়ার ক্যাপাসিটি প্রোগ্রেস বার (ইউনিক ফিচার) */}
           <div className="pt-2 space-y-1.5">
-            <div className="flex items-center justify-between text-[11px] font-semibold text-base-content/70">
-              <span className="flex items-center gap-1">
-                <Users className="w-3 h-3 text-base-content/50" />
+            <div className="flex items-center justify-between text-[11px] font-bold text-base-content/70">
+              <span className="flex items-center gap-1.5">
+                <Users className="w-3.5 h-3.5 text-indigo-500" />
                 <span>Volunteers Enrolled</span>
               </span>
-              <span className="text-emerald-600 font-bold">{progressPercent}%</span>
+              <span className="text-indigo-600 dark:text-indigo-400 font-extrabold">
+                {enrolled} / {target} ({percent}%)
+              </span>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-base-200 overflow-hidden">
+            
+            <div className="w-full h-2 rounded-full bg-base-200 dark:bg-slate-800 overflow-hidden">
               <div
-                className={`h-full rounded-full transition-all duration-700 ${meta.bar}`}
-                style={{ width: `${progressPercent}%` }}
+                className={`h-full rounded-full transition-all duration-700 ${meta.progressColor}`}
+                style={{ width: `${percent}%` }}
               />
             </div>
           </div>
+
         </div>
 
-        {/* ৩. কার্ড ফুটার ও বাটন */}
-        <div className="pt-4 border-t border-base-200/80 flex items-center justify-between gap-3">
+        {/* ৩. কার্ড ফুটার ও অ্যাকশন */}
+        <div className="pt-4 border-t border-base-200 dark:border-slate-800/80 flex items-center justify-between gap-3">
           
-          {/* হোস্ট / অর্গানাইজার ইনফো */}
+          {/* অর্গানাইজার ব্যাজ */}
           <div className="flex items-center gap-2 truncate">
-            <div className="w-7 h-7 rounded-full bg-base-300 text-base-content flex items-center justify-center font-bold text-xs shrink-0">
-              {(event.userName || event.userEmail || "C").charAt(0).toUpperCase()}
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center font-bold text-xs shadow-sm shrink-0">
+              {(event.userName || event.userEmail || "H").charAt(0).toUpperCase()}
             </div>
             <div className="truncate">
-              <p className="text-[10px] text-base-content/50 uppercase font-semibold">Organized by</p>
-              <p className="text-xs font-medium text-base-content truncate">
-                {event.userName || (event.userEmail ? event.userEmail.split("@")[0] : "Civic Lead")}
+              <p className="text-[10px] uppercase font-bold tracking-wider text-base-content/40">Initiator</p>
+              <p className="text-xs font-semibold text-base-content truncate">
+                {event.userName || (event.userEmail ? event.userEmail.split("@")[0] : "Verified Civic Lead")}
               </p>
             </div>
           </div>
 
-          {/* View Details বাটন */}
+          {/* ভিউ ডিটেইলস বাটন */}
           <Link
             href={`/events/${event._id}`}
-            className="px-4 py-2.5 rounded-xl bg-base-200 hover:bg-emerald-600 text-base-content hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-all group-hover:bg-emerald-600 group-hover:text-white shadow-sm shrink-0"
+            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white dark:bg-base-200 dark:hover:bg-indigo-600 dark:text-base-content dark:hover:text-white text-xs font-bold flex items-center gap-1.5 shadow-md active:scale-95 transition-all shrink-0"
           >
-            <span>Details</span>
+            <span>View Drive</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
 

@@ -104,3 +104,4 @@ export const fetchUserJoinedEvents = async (email) => {
   if (!res.ok) throw new Error("Failed to load joined events");
   return res.json();
 };
+

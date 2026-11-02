@@ -33,3 +33,4 @@ const Badge = ({ type = "default", children, className = "" }) => {
 };
 
 export default Badge;
+
