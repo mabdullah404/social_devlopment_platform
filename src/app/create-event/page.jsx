@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import ProtectedRoute from "@/components/ui/ProtectedRoute";
+import { createCommunityEvent } from "@/lib/api";
 import { 
   PlusCircle, 
   Calendar, 
@@ -12,8 +13,7 @@ import {
   FileText, 
   Tag, 
   Loader2, 
-  Sparkles, 
-  CheckCircle2 
+  Sparkles 
 } from "lucide-react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
@@ -71,7 +71,6 @@ const CreateEventPage = () => {
       return;
     }
 
-    // থাম্বনেইল ডিফল্ট সেট করা যদি ইউজার না দেয়
     const finalThumbnail =
       thumbnail.trim() ||
       "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=800&q=80";
@@ -79,8 +78,6 @@ const CreateEventPage = () => {
     setLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-      
       const payload = {
         title: title.trim(),
         description: description.trim(),
@@ -88,29 +85,20 @@ const CreateEventPage = () => {
         thumbnail: finalThumbnail,
         location: location.trim(),
         eventDate,
-        userEmail: session?.user?.email, // ইউজারের ইমেইল যাতে ভ্যালিডেশন করা যায়
+        userEmail: session?.user?.email,
         userName: session?.user?.name,
         createdAt: new Date().toISOString(),
       };
 
-      const res = await fetch(`${apiUrl}/events`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        throw new Error(errorData.message || "Failed to create event");
-      }
+      await createCommunityEvent(payload, session?.user?.email);
 
       // সফলতার SweetAlert2 প্রদর্শন ও Upcoming Events পেজে রিডাইরেক্ট (PDF রিকোয়ারমেন্ট)
       Swal.fire({
         icon: "success",
-        title: "Event Created Successfully!",
-        text: `Your initiative "${title}" has been published to Upcoming Events.`,
-        confirmButtonColor: "#059669",
-        confirmButtonText: "View Upcoming Events",
+        title: "Initiative Launched Successfully!",
+        text: `Your drive "${title}" has been published to Upcoming Events.`,
+        confirmButtonColor: "#4f46e5",
+        confirmButtonText: "View Upcoming Drives",
       }).then(() => {
         router.push("/events");
       });
@@ -128,12 +116,12 @@ const CreateEventPage = () => {
           
           {/* হেডার */}
           <div className="mb-8 text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-xs font-semibold text-emerald-800 dark:text-emerald-300 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
               <span>Organizer Console</span>
             </div>
             <h1 className="text-3xl font-extrabold text-base-content tracking-tight">
-              Create a Community Event
+              Initiate a Community Drive
             </h1>
             <p className="text-sm text-base-content/70 mt-1">
               Organize a local social service initiative and invite fellow citizens to volunteer.
@@ -141,13 +129,13 @@ const CreateEventPage = () => {
           </div>
 
           {/* ফর্ম কার্ড */}
-          <div className="rounded-3xl border border-base-300 bg-base-100 p-6 sm:p-10 shadow-xl">
+          <div className="rounded-3xl border border-base-300 dark:border-slate-800 bg-base-100 p-6 sm:p-10 shadow-xl">
             <form onSubmit={handleSubmit} className="space-y-6">
               
               {/* ১. টাইটেল */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-emerald-600" />
+                  <FileText className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Event Title *</span>
                 </label>
                 <input
@@ -156,7 +144,7 @@ const CreateEventPage = () => {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="e.g. Winter Clothes Distribution Drive 2026"
-                  className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all"
+                  className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all font-medium"
                 />
               </div>
 
@@ -166,13 +154,13 @@ const CreateEventPage = () => {
                 {/* ক্যাটাগরি ড্রপডাউন */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                    <Tag className="w-3.5 h-3.5 text-emerald-600" />
+                    <Tag className="w-3.5 h-3.5 text-indigo-600" />
                     <span>Event Type *</span>
                   </label>
                   <select
                     value={eventType}
                     onChange={(e) => setEventType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all cursor-pointer"
+                    className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all cursor-pointer font-medium"
                   >
                     <option value="Donation">Donation (Clothes, Blankets, Food)</option>
                     <option value="Cleanup">Cleanup Drive (Beach, Street, Lake)</option>
@@ -186,7 +174,7 @@ const CreateEventPage = () => {
                 {/* ইভেন্টের তারিখ (ভবিষ্যতের তারিখ আবশ্যক) */}
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                    <Calendar className="w-3.5 h-3.5 text-emerald-600" />
+                    <Calendar className="w-3.5 h-3.5 text-indigo-600" />
                     <span>Event Date (Future Date Only) *</span>
                   </label>
                   <input
@@ -195,7 +183,7 @@ const CreateEventPage = () => {
                     min={tomorrow}
                     value={eventDate}
                     onChange={(e) => setEventDate(e.target.value)}
-                    className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all"
+                    className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all font-medium"
                   />
                   <p className="text-[11px] text-base-content/50">
                     Past dates are restricted. Must be a future date.
@@ -207,7 +195,7 @@ const CreateEventPage = () => {
               {/* ৩. লোকেশন */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-emerald-600" />
+                  <MapPin className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Location / Gathering Spot *</span>
                 </label>
                 <input
@@ -216,14 +204,14 @@ const CreateEventPage = () => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g. Mirpur 10 Circle or Mohammadpur Town Hall, Dhaka"
-                  className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all"
+                  className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all font-medium"
                 />
               </div>
 
               {/* ৪. থাম্বনেইল ইমেজ URL */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                  <ImageIcon className="w-3.5 h-3.5 text-emerald-600" />
+                  <ImageIcon className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Thumbnail Image URL</span>
                 </label>
                 <input
@@ -231,7 +219,7 @@ const CreateEventPage = () => {
                   value={thumbnail}
                   onChange={(e) => setThumbnail(e.target.value)}
                   placeholder="https://images.unsplash.com/photo-..."
-                  className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all"
+                  className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all font-medium"
                 />
                 {/* ইমেজ প্রিভিউ */}
                 {thumbnail && (
@@ -251,7 +239,7 @@ const CreateEventPage = () => {
               {/* ৫. বিস্তারিত বর্ণনা */}
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-base-content/70 flex items-center gap-1.5">
-                  <FileText className="w-3.5 h-3.5 text-emerald-600" />
+                  <FileText className="w-3.5 h-3.5 text-indigo-600" />
                   <span>Event Description *</span>
                 </label>
                 <textarea
@@ -260,16 +248,16 @@ const CreateEventPage = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Describe the initiative, goals, what volunteers should bring, and specific coordination details..."
-                  className="w-full px-4 py-3 rounded-2xl border border-base-300 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 transition-all"
+                  className="w-full px-4 py-3 rounded-2xl border border-base-300 dark:border-slate-800 bg-base-200/50 text-base-content text-sm focus:outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 transition-all font-medium"
                 />
               </div>
 
               {/* সাবমিট বাটন */}
-              <div className="pt-4 border-t border-base-300 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-base-300 dark:border-slate-800 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => router.push("/events")}
-                  className="px-6 py-3 rounded-2xl border border-base-300 text-sm font-medium text-base-content hover:bg-base-200 transition-colors"
+                  className="px-6 py-3 rounded-2xl border border-base-300 text-sm font-bold text-base-content hover:bg-base-200 transition-colors"
                 >
                   Cancel
                 </button>
@@ -277,17 +265,17 @@ const CreateEventPage = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-8 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium flex items-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95 transition-all disabled:opacity-50"
+                  className="px-8 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-indigo-600/25 active:scale-95 transition-all disabled:opacity-50"
                 >
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>Creating Event...</span>
+                      <span>Publishing...</span>
                     </>
                   ) : (
                     <>
                       <PlusCircle className="w-4 h-4" />
-                      <span>Publish Event</span>
+                      <span>Publish Initiative</span>
                     </>
                   )}
                 </button>
@@ -303,4 +291,3 @@ const CreateEventPage = () => {
 };
 
 export default CreateEventPage;
-

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import EventCard from "@/components/events/EventCard";
 import EventSkeleton from "@/components/events/EventSkeleton";
+import { fetchRecentEvents } from "@/lib/api";
 import { ArrowRight, Sparkles, AlertCircle, Layers } from "lucide-react";
 
 // হোম পেজের সাম্প্রতিক ৬টি আসন্ন ইভেন্ট সেকশন (ডায়নামিক - ডাটাবেজ থেকে .limit(6) অনুযায়ী)
@@ -14,18 +15,11 @@ const RecentEvents = () => {
 
   // ব্যাকএন্ড থেকে সাম্প্রতিক ৬টি ইভেন্ট লোড করা
   useEffect(() => {
-    const fetchRecentEvents = async () => {
+    const loadEvents = async () => {
       try {
         setLoading(true);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const response = await fetch(`${apiUrl}/events?limit=6`);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch recent events");
-        }
-
-        const data = await response.json();
-        setEvents(Array.isArray(data) ? data : data.events || []);
+        const data = await fetchRecentEvents();
+        setEvents(Array.isArray(data) ? data : []);
         setError(null);
       } catch (err) {
         console.error("Error loading events:", err);
@@ -35,7 +29,7 @@ const RecentEvents = () => {
       }
     };
 
-    fetchRecentEvents();
+    loadEvents();
   }, []);
 
   return (
