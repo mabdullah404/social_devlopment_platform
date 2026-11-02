@@ -33,10 +33,21 @@ if (process.env.NODE_ENV === "development") {
 
 const db = client.db("socialDevelopmentDB");
 
-const rawBaseURL =
-  process.env.BETTER_AUTH_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-const resolvedBaseURL = rawBaseURL ? rawBaseURL.replace(/\/$/, "") : "http://localhost:3000";
+const isProduction = process.env.NODE_ENV === "production";
+
+// প্রোডাকশনে কখনোই localhost হবে না; সর্বদা লাইভ ডোমেন নিশ্চিত করা হচ্ছে
+let rawBaseURL = process.env.BETTER_AUTH_URL;
+if (isProduction) {
+  if (!rawBaseURL || rawBaseURL.includes("localhost")) {
+    rawBaseURL = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "https://social-development-platform.vercel.app";
+  }
+} else {
+  rawBaseURL = rawBaseURL || "http://localhost:3000";
+}
+
+const resolvedBaseURL = rawBaseURL.replace(/\/$/, "");
 
 // BetterAuth কনফিগারেশন (ইমেইল/পাসওয়ার্ড এবং গুগল লগইন)
 export const auth = betterAuth({
@@ -66,6 +77,7 @@ export const auth = betterAuth({
         process.env.BETTER_AUTH_GOOGLE_SECRET ||
         process.env.GOOGLE_SECRET ||
         "",
+      redirectURI: `${resolvedBaseURL}/api/auth/callback/google`,
     },
   },
 
