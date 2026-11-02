@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "ImpactSphere | Social Development & Community Events",
+  title: "CivicPulse | Grassroots Action & Volunteer Network",
   description:
-    "A community-driven event management platform where citizens unite to create, join, and track impactful social service events in their local neighborhoods.",
+    "A high-impact community-driven event management network where citizens unite to create, join, and track impactful social service events in their local neighborhoods.",
 };
 
 export default function RootLayout({ children }) {
@@ -42,7 +42,8 @@ export default function RootLayout({ children }) {
                 boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
                 borderRadius: "1rem",
                 padding: "12px 16px",
-                fontWeight: 500,
+                fontWeight: 600,
+                fontSize: "13px",
               },
             }}
           />

@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { HeartHandshake, Mail, MapPin, Phone } from "lucide-react";
+import { Activity, Mail, MapPin, Phone } from "lucide-react";
 
 // আধুনিক এবং দৃষ্টিনন্দন ফুটার কম্পোনেন্ট (নতুন X লোগো সহ)
 const Footer = () => {
@@ -11,16 +11,16 @@ const Footer = () => {
           
           {/* কলাম ১: ব্র্যান্ড এবং মিশন */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/20">
-                <HeartHandshake className="w-6 h-6" />
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-emerald-600/20">
+                <Activity className="w-5 h-5 animate-pulse" />
               </div>
-              <span className="font-bold text-xl tracking-tight text-base-content">
-                Impact<span className="text-emerald-600">Sphere</span>
+              <span className="font-extrabold text-xl tracking-tight text-base-content">
+                Civic<span className="text-emerald-600">Pulse</span>
               </span>
             </Link>
             <p className="text-sm text-base-content/70 leading-relaxed">
-              A community-driven event management platform where citizens unite to create, join, and track impactful social service events in their local neighborhoods.
+              A high-impact community-driven event management network where conscious citizens create, join, and track verified grassroots humanitarian initiatives.
             </p>
             {/* নতুন X এবং অন্যান্য সোশ্যাল আইকন */}
             <div className="flex items-center gap-3 pt-2">
@@ -80,33 +80,33 @@ const Footer = () => {
 
           {/* কলাম ২: দ্রুত লিঙ্কসমূহ */}
           <div>
-            <h4 className="font-semibold text-base text-base-content mb-4 tracking-wide uppercase text-xs">
-              Quick Links
+            <h4 className="font-bold text-sm text-base-content mb-4 tracking-wider uppercase">
+              Explore Network
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2.5 text-xs font-semibold">
               <li>
                 <Link href="/" className="hover:text-emerald-600 transition-colors">
-                  Home
+                  Home Overview
                 </Link>
               </li>
               <li>
                 <Link href="/events" className="hover:text-emerald-600 transition-colors">
-                  Upcoming Events
+                  Upcoming Community Drives
                 </Link>
               </li>
               <li>
                 <Link href="/create-event" className="hover:text-emerald-600 transition-colors">
-                  Host a Community Event
+                  Host an Initiative
                 </Link>
               </li>
               <li>
                 <Link href="/manage-events" className="hover:text-emerald-600 transition-colors">
-                  Manage Events
+                  Manage My Drives
                 </Link>
               </li>
               <li>
                 <Link href="/joined-events" className="hover:text-emerald-600 transition-colors">
-                  My Joined Events
+                  Registered Volunteering
                 </Link>
               </li>
             </ul>
@@ -114,52 +114,52 @@ const Footer = () => {
 
           {/* কলাম ৩: প্রধান উদ্যোগসমূহ */}
           <div>
-            <h4 className="font-semibold text-base text-base-content mb-4 tracking-wide uppercase text-xs">
-              Focus Areas
+            <h4 className="font-bold text-sm text-base-content mb-4 tracking-wider uppercase">
+              Action Sectors
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2.5 text-xs font-medium">
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                Winter Clothes & Blanket Relief
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+                Winter Clothing & Blanket Relief
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
-                Tree Plantation & Urban Greenery
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                Urban Greening & Tree Plantations
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                Food Sharing & Nutrition Drives
+                Food Sharing & Meal Provision
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                Clean City & Recycling Drives
+                Neighborhood Sanitation & Cleanup
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500" />
-                Free Medical & Blood Camps
+                <span className="w-1.5 h-1.5 rounded-full bg-teal-500" />
+                Free Medical Camps & Eye Screening
               </li>
             </ul>
           </div>
 
           {/* কলাম ৪: যোগাযোগ ও সাপোর্ট */}
           <div className="space-y-3">
-            <h4 className="font-semibold text-base text-base-content mb-4 tracking-wide uppercase text-xs">
-              Contact & Support
+            <h4 className="font-bold text-sm text-base-content mb-4 tracking-wider uppercase">
+              Civic Coordination
             </h4>
-            <div className="flex items-start gap-3 text-sm text-base-content/70">
-              <MapPin className="w-4 h-4 text-emerald-600 mt-1 shrink-0" />
+            <div className="flex items-start gap-3 text-xs text-base-content/70">
+              <MapPin className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
               <span>Mirpur 10 & Mohammadpur, Dhaka, Bangladesh</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-base-content/70">
+            <div className="flex items-center gap-3 text-xs text-base-content/70">
               <Phone className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>+880 1700-000000</span>
             </div>
-            <div className="flex items-center gap-3 text-sm text-base-content/70">
+            <div className="flex items-center gap-3 text-xs text-base-content/70">
               <Mail className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>support@impactsphere.org</span>
+              <span>civic@impactsphere.org</span>
             </div>
-            <p className="text-xs text-base-content/50 pt-2">
-              Open 7 days a week for urgent humanitarian event coordination.
+            <p className="text-[11px] text-base-content/50 pt-2">
+              Citizen support network active 24/7 for urgent community disaster and relief coordination.
             </p>
           </div>
 
@@ -167,9 +167,9 @@ const Footer = () => {
 
         {/* নিচের কপিরাইট ও ক্রেডিট */}
         <div className="mt-12 pt-6 border-t border-base-300 flex flex-col sm:flex-row items-center justify-between text-xs text-base-content/60 gap-4">
-          <p>© {new Date().getFullYear()} ImpactSphere. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Built with dedication for social development and community impact.
+          <p>© {new Date().getFullYear()} CivicPulse Action Network. All rights reserved.</p>
+          <p className="flex items-center gap-1 font-medium">
+            Designed for genuine grassroots empowerment and local volunteerism.
           </p>
         </div>
       </div>
