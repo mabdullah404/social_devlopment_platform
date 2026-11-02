@@ -218,8 +218,8 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-              /* ৫. লগআউট থাকলে সাইন ইন / রেজিস্টার বাটন */
-              <div className="flex items-center gap-2">
+              /* ৫. লগআউট থাকলে সাইন ইন / রেজিস্টার বাটন (ডেস্কটপে দৃশ্যমান, মোবাইলে হ্যামবার্গার মেনুতে) */
+              <div className="hidden md:flex items-center gap-2">
                 <Link
                   href="/login"
                   className="px-4 py-2 text-xs font-bold text-base-content/80 hover:text-indigo-600 transition-colors"
@@ -235,7 +235,7 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* মোবাইল মেনু বাটন */}
+            {/* মোবাইল মেনু বাটন (৩ লাইন বাটন) */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 rounded-xl text-base-content hover:bg-base-200"
@@ -249,7 +249,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* মোবাইল মেনু */}
+      {/* মোবাইল মেনু ড্রয়ার */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-base-300 dark:border-slate-800 bg-base-100 p-4 space-y-2">
           <Link
@@ -266,7 +266,7 @@ const Navbar = () => {
           >
             Upcoming Drives
           </Link>
-          {session?.user && (
+          {session?.user ? (
             <>
               <div className="border-t border-base-200 dark:border-slate-800 pt-2 text-[10px] font-bold uppercase tracking-wider text-base-content/50 px-3">
                 My Workspace
@@ -299,7 +299,36 @@ const Navbar = () => {
               >
                 My Profile
               </Link>
+              <div className="pt-2 border-t border-base-200 dark:border-slate-800">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors text-left"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
             </>
+          ) : (
+            <div className="pt-3 border-t border-base-200 dark:border-slate-800 flex flex-col gap-2">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-xl text-center text-sm font-bold border border-base-300 dark:border-slate-800 text-base-content hover:bg-base-200 transition-colors"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 px-4 rounded-xl text-center text-sm font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-600/20 active:scale-95 transition-all"
+              >
+                Get Started
+              </Link>
+            </div>
           )}
         </div>
       )}
