@@ -6,7 +6,7 @@ const dbUrl = process.env.BETTER_AUTH_DB_URL || "mongodb://localhost:27017/bette
 const client = new MongoClient(dbUrl);
 const db = client.db();
 
-// BetterAuth কনফিগারেশন (শুধুমাত্র ইমেইল/পাসওয়ার্ড এবং গুগল লগইন)
+// BetterAuth কনফিগারেশন (ইমেইল/পাসওয়ার্ড এবং গুগল লগইন)
 export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
   secret: process.env.BETTER_AUTH_SECRET || "default-dev-secret-key-for-social-app",
@@ -16,11 +16,17 @@ export const auth = betterAuth({
     enabled: true,
   },
 
-  // সোশ্যাল প্রোভাইডার: শুধুমাত্র Google
+  // সোশ্যাল প্রোভাইডার: Google (উভয় ধরনের ভেরিয়েবল নেইম সাপোর্ট করে)
   socialProviders: {
     google: {
-      clientId: process.env.BETTER_AUTH_GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.BETTER_AUTH_GOOGLE_SECRET || "",
+      clientId:
+        process.env.BETTER_AUTH_GOOGLE_CLIENT_ID ||
+        process.env.GOOGLE_CLIENT_ID ||
+        "",
+      clientSecret:
+        process.env.BETTER_AUTH_GOOGLE_SECRET ||
+        process.env.GOOGLE_SECRET ||
+        "",
     },
   },
 
