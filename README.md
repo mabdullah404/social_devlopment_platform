@@ -144,7 +144,7 @@ The server will run on [http://localhost:5000](http://localhost:5000).
 
 - **Lead Developer:** MD Abdullah Al Mamun
 - **GitHub Profile:** [https://github.com/mabdullah404](https://github.com/mabdullah404)
-- **Live Portfolio:** [https://personal-portfolio-omega-seven-70.vercel.app](https://personal-portfolio-omega-seven-70.vercel.app)
+- **Live Portfolio:** [https://personal-portfolio-green-one-68.vercel.app/](https://personal-portfolio-green-one-68.vercel.app/)
 
 ---
 

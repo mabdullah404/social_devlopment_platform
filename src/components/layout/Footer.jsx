@@ -26,7 +26,7 @@ const Footer = () => {
             <div className="flex items-center gap-3 pt-2">
               {/* Personal Portfolio Link */}
               <a
-                href="https://personal-portfolio-omega-seven-70.vercel.app"
+                href="https://personal-portfolio-green-one-68.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Personal Portfolio"
