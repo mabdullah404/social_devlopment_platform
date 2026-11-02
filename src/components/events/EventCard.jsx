@@ -208,12 +208,12 @@ const EventCard = ({ event }) => {
             </div>
           </div>
 
-          {/* ভিউ ডিটেইলস বাটন */}
+          {/* ভিউ ডিটেইলস বাটন (PDF রিকোয়ারমেন্ট: View Event button) */}
           <Link
             href={`/events/${event._id}`}
             className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white dark:bg-base-200 dark:hover:bg-indigo-600 dark:text-base-content dark:hover:text-white text-xs font-bold flex items-center gap-1.5 shadow-md active:scale-95 transition-all shrink-0"
           >
-            <span>View Drive</span>
+            <span>View Event</span>
             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
 

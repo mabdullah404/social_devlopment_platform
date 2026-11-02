@@ -352,7 +352,7 @@ const EventDetailsPage = ({ params }) => {
                   ) : (
                     <>
                       <CheckCircle2 className="w-4 h-4" />
-                      <span>Join as Volunteer</span>
+                      <span>Join Event</span>
                     </>
                   )}
                 </button>

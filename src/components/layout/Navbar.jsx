@@ -88,7 +88,7 @@ const Navbar = () => {
               }`}
             >
               <CalendarDays className="w-4 h-4 text-indigo-600" />
-              <span>Upcoming Drives</span>
+              <span>Upcoming Events</span>
             </Link>
           </nav>
 
@@ -111,111 +111,124 @@ const Navbar = () => {
             {isPending ? (
               <div className="w-9 h-9 rounded-full bg-base-300 animate-pulse" />
             ) : session?.user ? (
-              /* ৪. লগইন থাকা অবস্থায় ইউজার প্রফাইল ড্রপডাউন */
-              <div className="relative">
-                {/* হোভার করলে নাম প্রদর্শনের টুলটিপ (PDF রিকোয়ারমেন্ট) */}
-                <div
-                  className="tooltip tooltip-bottom cursor-pointer"
-                  data-tip={`Logged in as ${session.user.name || "User"}`}
-                >
-                  <button
-                    onClick={() => setDropdownOpen(!dropdownOpen)}
-                    type="button"
-                    className="relative flex items-center p-0.5 rounded-full ring-2 ring-indigo-500/40 hover:ring-indigo-500 transition-all focus:outline-none"
-                    aria-label="User account"
+              /* ৪. লগইন থাকা অবস্থায় ইউজার প্রফাইল ড্রপডাউন ও লগআউট বাটন (PDF: profile picture and Logout button) */
+              <div className="flex items-center gap-2.5">
+                <div className="relative">
+                  {/* হোভার করলে নাম প্রদর্শনের টুলটিপ (PDF রিকোয়ারমেন্ট) */}
+                  <div
+                    className="tooltip tooltip-bottom cursor-pointer"
+                    data-tip={`Logged in as ${session.user.name || "User"}`}
                   >
-                    {session.user.image ? (
-                      <img
-                        src={session.user.image}
-                        alt={session.user.name || "User avatar"}
-                        className="w-9 h-9 rounded-full object-cover"
+                    <button
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      type="button"
+                      className="relative flex items-center p-0.5 rounded-full ring-2 ring-indigo-500/40 hover:ring-indigo-500 transition-all focus:outline-none"
+                      aria-label="User account"
+                    >
+                      {session.user.image ? (
+                        <img
+                          src={session.user.image}
+                          alt={session.user.name || "User avatar"}
+                          className="w-9 h-9 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-black text-sm">
+                          {(session.user.name || "C").charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      {/* অনলাইন গ্রিন ডট */}
+                      <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-base-100" />
+                    </button>
+                  </div>
+
+                  {/* ইউনিক ড্রপডাউন মেনু */}
+                  {dropdownOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-40"
+                        onClick={() => setDropdownOpen(false)}
                       />
-                    ) : (
-                      <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-black text-sm">
-                        {(session.user.name || "C").charAt(0).toUpperCase()}
+                      <div className="absolute right-0 mt-3 w-64 rounded-3xl bg-base-100 border border-base-300 dark:border-slate-800 shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
+                        
+                        {/* টপ হেডার কার্ড */}
+                        <div className="p-4 bg-gradient-to-r from-indigo-600 to-violet-700 text-white">
+                          <div className="flex items-center gap-2 mb-1">
+                            <ShieldCheck className="w-4 h-4 text-indigo-200" />
+                            <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-100">
+                              Verified Volunteer
+                            </span>
+                          </div>
+                          <p className="font-bold text-sm truncate">{session.user.name}</p>
+                          <p className="text-xs text-indigo-100/80 truncate mt-0.5">
+                            {session.user.email}
+                          </p>
+                        </div>
+
+                        {/* ড্রপডাউন লিংকসমূহ (PDF রিকোয়ারমেন্ট: Create, Manage, Joined) */}
+                        <div className="p-2 space-y-1">
+                          <Link
+                            href="/create-event"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
+                          >
+                            <PlusCircle className="w-4 h-4 text-indigo-600" />
+                            <span>Create Event</span>
+                          </Link>
+                          <Link
+                            href="/manage-events"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
+                          >
+                            <FolderKanban className="w-4 h-4 text-indigo-500" />
+                            <span>Manage Events</span>
+                          </Link>
+                          <Link
+                            href="/joined-events"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
+                          >
+                            <CheckCircle2 className="w-4 h-4 text-teal-500" />
+                            <span>Joined Events</span>
+                          </Link>
+                          <Link
+                            href="/profile"
+                            onClick={() => setDropdownOpen(false)}
+                            className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
+                          >
+                            <User className="w-4 h-4 text-amber-500" />
+                            <span>My Profile</span>
+                          </Link>
+                        </div>
+
+                        {/* ড্রপডাউনেও লগআউট বাটন */}
+                        <div className="p-2 border-t border-base-200 dark:border-slate-800">
+                          <button
+                            onClick={() => {
+                              setDropdownOpen(false);
+                              handleLogout();
+                            }}
+                            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors text-left"
+                          >
+                            <LogOut className="w-4 h-4" />
+                            <span>Sign Out</span>
+                          </button>
+                        </div>
+
                       </div>
-                    )}
-                    {/* অনলাইন গ্রিন ডট */}
-                    <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-base-100" />
-                  </button>
+                    </>
+                  )}
                 </div>
 
-                {/* ইউনিক ড্রপডাউন মেনু */}
-                {dropdownOpen && (
-                  <>
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={() => setDropdownOpen(false)}
-                    />
-                    <div className="absolute right-0 mt-3 w-64 rounded-3xl bg-base-100 border border-base-300 dark:border-slate-800 shadow-2xl overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-150">
-                      
-                      {/* টপ হেডার কার্ড */}
-                      <div className="p-4 bg-gradient-to-r from-indigo-600 to-violet-700 text-white">
-                        <div className="flex items-center gap-2 mb-1">
-                          <ShieldCheck className="w-4 h-4 text-indigo-200" />
-                          <span className="text-[10px] uppercase font-bold tracking-wider text-indigo-100">
-                            Verified Volunteer
-                          </span>
-                        </div>
-                        <p className="font-bold text-sm truncate">{session.user.name}</p>
-                        <p className="text-xs text-indigo-100/80 truncate mt-0.5">
-                          {session.user.email}
-                        </p>
-                      </div>
-
-                      {/* ড্রপডাউন লিংকসমূহ (PDF রিকোয়ারমেন্ট: Create, Manage, Joined) */}
-                      <div className="p-2 space-y-1">
-                        <Link
-                          href="/create-event"
-                          onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
-                        >
-                          <PlusCircle className="w-4 h-4 text-indigo-600" />
-                          <span>Create Event</span>
-                        </Link>
-                        <Link
-                          href="/manage-events"
-                          onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
-                        >
-                          <FolderKanban className="w-4 h-4 text-indigo-500" />
-                          <span>Manage Events</span>
-                        </Link>
-                        <Link
-                          href="/joined-events"
-                          onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
-                        >
-                          <CheckCircle2 className="w-4 h-4 text-teal-500" />
-                          <span>Joined Events</span>
-                        </Link>
-                        <Link
-                          href="/profile"
-                          onClick={() => setDropdownOpen(false)}
-                          className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-base-content/80 hover:bg-base-200 hover:text-indigo-600 transition-colors"
-                        >
-                          <User className="w-4 h-4 text-amber-500" />
-                          <span>My Profile</span>
-                        </Link>
-                      </div>
-
-                      {/* লগআউট বাটন */}
-                      <div className="p-2 border-t border-base-200 dark:border-slate-800">
-                        <button
-                          onClick={() => {
-                            setDropdownOpen(false);
-                            handleLogout();
-                          }}
-                          className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors text-left"
-                        >
-                          <LogOut className="w-4 h-4" />
-                          <span>Sign Out</span>
-                        </button>
-                      </div>
-
-                    </div>
-                  </>
-                )}
+                {/* ন্যাভবারে দৃশ্যমান Logout বাটন (PDF Page 2 রিকোয়ারমেন্ট: profile picture and Logout button) */}
+                <button
+                  onClick={handleLogout}
+                  type="button"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/40 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition-all"
+                  title="Logout"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  <span>Logout</span>
+                </button>
               </div>
             ) : (
               /* ৫. লগআউট থাকলে সাইন ইন / রেজিস্টার বাটন (ডেস্কটপে দৃশ্যমান, মোবাইলে হ্যামবার্গার মেনুতে) */
@@ -264,7 +277,7 @@ const Navbar = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="block px-3 py-2 rounded-xl text-sm font-semibold text-base-content hover:bg-base-200"
           >
-            Upcoming Drives
+            Upcoming Events
           </Link>
           {session?.user ? (
             <>
