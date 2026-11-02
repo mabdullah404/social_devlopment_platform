@@ -145,3 +145,4 @@ The server will run on [http://localhost:5000](http://localhost:5000).
 - **Server Commits:** 8+ commits documenting backend route implementations and database operations.
 - **Assignment ID:** B14-A8_Cat-Hermione ("Social Development Events Platform")
 - **License:** MIT License
+,lm 
