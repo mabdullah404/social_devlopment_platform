@@ -4,12 +4,15 @@
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
-// ১. JWT টোকেন সংগ্রহ ও লোকালস্টোরেজে সংরক্ষণ
+// ১. JWT টোকেন সংগ্রহ ও লোকালস্টোরেজে সংরক্ষণ (ইউজার ভেদে স্বয়ংক্রিয় রিফ্রেশ)
 export const getOrFetchToken = async (email) => {
   if (typeof window === "undefined") return null;
 
   let token = localStorage.getItem("access-token");
-  if (!token && email) {
+  const storedEmail = localStorage.getItem("access-token-email");
+
+  // যদি টোকেন না থাকে অথবা ইমেইল পরিবর্তিত হয়, তবে ফ্রেশ টোকেন নেওয়া
+  if ((!token || storedEmail !== email) && email) {
     try {
       const res = await fetch(`${API_BASE_URL}/jwt`, {
         method: "POST",
@@ -20,6 +23,7 @@ export const getOrFetchToken = async (email) => {
         const data = await res.json();
         token = data.token;
         localStorage.setItem("access-token", token);
+        localStorage.setItem("access-token-email", email);
       }
     } catch (err) {
       console.error("JWT Token generation error:", err);

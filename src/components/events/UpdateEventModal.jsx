@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { X, Calendar, MapPin, Tag, FileText, Image as ImageIcon, Loader2, Save } from "lucide-react";
 import toast from "react-hot-toast";
+import { updateCommunityEvent } from "@/lib/api";
 
 // ইভেন্ট আপডেট করার জন্য সহজ ও মডুলার মডাল কম্পোনেন্ট (ভ্যালিডেশন সহ)
-const UpdateEventModal = ({ isOpen, onClose, event, onUpdateSuccess }) => {
+const UpdateEventModal = ({ isOpen, onClose, event, userEmail, onUpdateSuccess }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [eventType, setEventType] = useState("Donation");
@@ -65,7 +66,6 @@ const UpdateEventModal = ({ isOpen, onClose, event, onUpdateSuccess }) => {
     setLoading(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
       const payload = {
         title: title.trim(),
         description: description.trim(),
@@ -75,20 +75,13 @@ const UpdateEventModal = ({ isOpen, onClose, event, onUpdateSuccess }) => {
         eventDate,
       };
 
-      const res = await fetch(`${apiUrl}/events/${event._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      // JWT টোকেন সহ নিরাপদে সেন্ট্রালাইজড এপিআই দিয়ে ইভেন্ট আপডেট করা
+      const updated = await updateCommunityEvent(event._id, payload, userEmail);
 
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.message || "Failed to update event");
-      }
-
-      const updated = await res.json();
       toast.success("Event updated successfully!");
-      onUpdateSuccess(updated);
+      if (onUpdateSuccess) {
+        onUpdateSuccess({ ...event, ...payload, ...updated });
+      }
       onClose();
     } catch (err) {
       toast.error(err.message || "Update error. Please try again.");

@@ -79,11 +79,12 @@ const ManageEventsPage = () => {
     setIsModalOpen(true);
   };
 
-  // আপডেট সফল হলে লোকাল স্টেট রিফ্রেশ
+  // আপডেট সফল হলে লোকাল স্টেট ও ডাটাবেজ থেকে রিফ্রেশ
   const handleUpdateSuccess = (updatedEvent) => {
     setEvents((prev) =>
-      prev.map((item) => (item._id === updatedEvent._id ? updatedEvent : item))
+      prev.map((item) => (item._id === updatedEvent._id ? { ...item, ...updatedEvent } : item))
     );
+    fetchMyEvents();
   };
 
   const formatDate = (dateStr) => {
@@ -260,6 +261,7 @@ const ManageEventsPage = () => {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           event={selectedEvent}
+          userEmail={session?.user?.email}
           onUpdateSuccess={handleUpdateSuccess}
         />
       </div>
