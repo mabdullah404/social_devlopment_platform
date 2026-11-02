@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import EventCard from "@/components/events/EventCard";
 import EventSkeleton from "@/components/events/EventSkeleton";
 import EventFilter from "@/components/events/EventFilter";
+import { fetchUpcomingEvents } from "@/lib/api";
 import { PlusCircle, CalendarDays, AlertCircle, Sparkles, FilterX, Flame } from "lucide-react";
 import Link from "next/link";
 
@@ -24,14 +25,7 @@ const UpcomingEventsPage = () => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-        const res = await fetch(`${apiUrl}/events`);
-
-        if (!res.ok) {
-          throw new Error("Failed to load events");
-        }
-
-        const data = await res.json();
+        const data = await fetchUpcomingEvents();
         const allEvents = Array.isArray(data) ? data : data.events || [];
         setEvents(allEvents);
         setError(null);

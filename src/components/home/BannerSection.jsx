@@ -102,18 +102,18 @@ const BannerSection = () => {
             </div>
 
             {/* লাইভ কাউন্টার স্ট্যাটস */}
-            <div className="pt-6 border-t border-base-300 dark:border-slate-800 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0 text-left">
-              <div className="p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400">14k+</p>
-                <p className="text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Lives Touched</p>
+            <div className="pt-6 border-t border-base-300 dark:border-slate-800 grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto lg:mx-0 text-left">
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-indigo-600 dark:text-indigo-400">14k+</p>
+                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Lives Touched</p>
               </div>
-              <div className="p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-2xl sm:text-3xl font-black text-rose-500">92+</p>
-                <p className="text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Active Drives</p>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-rose-500">92+</p>
+                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Active Drives</p>
               </div>
-              <div className="p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
-                <p className="text-2xl sm:text-3xl font-black text-amber-500">4.2k+</p>
-                <p className="text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Volunteers</p>
+              <div className="p-2.5 sm:p-3.5 rounded-2xl bg-base-200/40 border border-base-300/60 dark:border-slate-800">
+                <p className="text-xl sm:text-2xl md:text-3xl font-black text-amber-500">4.2k+</p>
+                <p className="text-[10px] sm:text-[11px] text-base-content/60 font-bold uppercase tracking-wider">Volunteers</p>
               </div>
             </div>
 

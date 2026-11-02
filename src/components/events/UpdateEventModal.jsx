@@ -91,8 +91,8 @@ const UpdateEventModal = ({ isOpen, onClose, event, userEmail, onUpdateSuccess }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-base-100 rounded-3xl border border-base-300 shadow-2xl p-6 sm:p-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-2xl max-h-[92vh] overflow-y-auto bg-base-100 rounded-3xl border border-base-300 dark:border-slate-800 shadow-2xl p-5 sm:p-8">
         
         {/* মডাল হেডার */}
         <div className="flex items-center justify-between pb-4 border-b border-base-300 mb-6">
@@ -211,24 +211,24 @@ const UpdateEventModal = ({ isOpen, onClose, event, userEmail, onUpdateSuccess }
             />
           </div>
 
-          {/* বাটনসমূহ */}
-          <div className="pt-4 border-t border-base-300 flex items-center justify-end gap-3">
+          {/* বাটনসমূহ (মোবাইলে ফুল উইথ ও রেস্পন্সিভ) */}
+          <div className="pt-4 border-t border-base-300 dark:border-slate-800 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl border border-base-300 text-sm font-medium hover:bg-base-200 transition-colors"
+              className="px-5 py-2.5 rounded-xl border border-base-300 dark:border-slate-800 text-sm font-semibold hover:bg-base-200 transition-colors text-center"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium flex items-center gap-2 shadow-md disabled:opacity-50 transition-all"
+              className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 disabled:opacity-50 transition-all active:scale-95 text-center"
             >
               {loading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Saving...</span>
+                  <span>Saving Changes...</span>
                 </>
               ) : (
                 <>
