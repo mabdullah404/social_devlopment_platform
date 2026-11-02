@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "@/lib/auth-client";
+import { useSession, updateUser } from "@/lib/auth-client";
 import ProtectedRoute from "@/components/ui/ProtectedRoute";
+import { fetchMyManageEvents, fetchUserJoinedEvents } from "@/lib/api";
 import { 
   User, 
   Mail, 
@@ -23,32 +24,32 @@ const ProfilePage = () => {
   const [name, setName] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [loading, setLoading] = useState(false);
+  const [statsLoading, setStatsLoading] = useState(true);
   const [stats, setStats] = useState({ created: 0, joined: 0 });
 
-  // ইউজার ডাটা দিয়ে স্টেট ইনিশিয়ালাইজ করা
+  // ইউজার ডাটা দিয়ে স্টেট ইনিশিয়ালাইজ করা এবং ডায়নামিক পরিসংখ্যান লোড করা
   useEffect(() => {
-    if (session?.user) {
+    if (session?.user?.email) {
       setName(session.user.name || "");
-      setPhotoURL(session.user.image || "");
+      setPhotoURL(session.user.image || session.user.photoURL || "");
 
-      // ইউজারের তৈরি করা ও জয়েন করা ইভেন্টের পরিসংখ্যান লোড করা
+      // ইউজারের তৈরি করা (Hosted) ও জয়েন করা (Joined) ইভেন্টের রিয়েল ডাটা লোড করা
       const loadStats = async () => {
+        setStatsLoading(true);
         try {
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
-          const [createdRes, joinedRes] = await Promise.all([
-            fetch(`${apiUrl}/events/created/${encodeURIComponent(session.user.email)}`),
-            fetch(`${apiUrl}/events/joined/${encodeURIComponent(session.user.email)}`),
+          const [hostedEvents, joinedEvents] = await Promise.all([
+            fetchMyManageEvents(session.user.email).catch(() => []),
+            fetchUserJoinedEvents(session.user.email).catch(() => []),
           ]);
 
-          const createdData = createdRes.ok ? await createdRes.json() : [];
-          const joinedData = joinedRes.ok ? await joinedRes.json() : [];
-
           setStats({
-            created: Array.isArray(createdData) ? createdData.length : 0,
-            joined: Array.isArray(joinedData) ? joinedData.length : 0,
+            created: Array.isArray(hostedEvents) ? hostedEvents.length : 0,
+            joined: Array.isArray(joinedEvents) ? joinedEvents.length : 0,
           });
-        } catch {
-          // সাইলেন্ট হ্যান্ডলিং
+        } catch (err) {
+          console.error("Error loading profile stats:", err);
+        } finally {
+          setStatsLoading(false);
         }
       };
 
@@ -68,7 +69,12 @@ const ProfilePage = () => {
     setLoading(true);
 
     try {
-      // BetterAuth বা লোকাল সেশনে প্রোফাইল আপডেট
+      if (updateUser) {
+        await updateUser({
+          name: name.trim(),
+          image: photoURL.trim(),
+        });
+      }
       toast.success("Profile information updated successfully!");
     } catch {
       toast.error("Failed to update profile.");
@@ -136,7 +142,11 @@ const ProfilePage = () => {
                     <div className="w-8 h-8 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center mx-auto mb-2">
                       <PlusCircle className="w-4 h-4" />
                     </div>
-                    <p className="text-2xl font-extrabold text-base-content">{stats.created}</p>
+                    {statsLoading ? (
+                      <Loader2 className="w-5 h-5 animate-spin mx-auto text-indigo-600 my-1" />
+                    ) : (
+                      <p className="text-2xl font-extrabold text-base-content">{stats.created}</p>
+                    )}
                     <p className="text-[11px] text-base-content/60 font-medium">Events Hosted</p>
                   </div>
 
@@ -144,7 +154,11 @@ const ProfilePage = () => {
                     <div className="w-8 h-8 rounded-xl bg-teal-100 dark:bg-teal-950 text-teal-600 flex items-center justify-center mx-auto mb-2">
                       <CalendarCheck className="w-4 h-4" />
                     </div>
-                    <p className="text-2xl font-extrabold text-base-content">{stats.joined}</p>
+                    {statsLoading ? (
+                      <Loader2 className="w-5 h-5 animate-spin mx-auto text-teal-600 my-1" />
+                    ) : (
+                      <p className="text-2xl font-extrabold text-base-content">{stats.joined}</p>
+                    )}
                     <p className="text-[11px] text-base-content/60 font-medium">Drives Joined</p>
                   </div>
                 </div>

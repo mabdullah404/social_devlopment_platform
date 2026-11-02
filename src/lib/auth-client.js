@@ -12,5 +12,5 @@ export const authClient = createAuthClient({
 });
 
 // সরাসরি ব্যবহারের জন্য সহজ এক্সপোর্ট
-export const { signIn, signUp, signOut, useSession } = authClient;
+export const { signIn, signUp, signOut, useSession, updateUser } = authClient;
 
